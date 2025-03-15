@@ -3,12 +3,10 @@ import {
 	type INodeExecutionData,
 	type INodeType,
 	type INodeTypeDescription,
-	NodeOperationError,
 } from 'n8n-workflow';
 
 import OpenAI from 'openai';
 import axios from 'axios';
-import { Readable } from 'stream';
 
 import {
 	resourceFields,
