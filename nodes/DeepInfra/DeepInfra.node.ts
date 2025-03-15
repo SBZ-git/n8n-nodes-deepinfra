@@ -1,13 +1,14 @@
 import {
-	NodeConnectionType,
 	type IExecuteFunctions,
 	type INodeExecutionData,
 	type INodeType,
 	type INodeTypeDescription,
-	type IDataObject,
+	NodeOperationError,
 } from 'n8n-workflow';
 
 import OpenAI from 'openai';
+import axios from 'axios';
+import { Readable } from 'stream';
 
 import {
 	resourceFields,
@@ -15,10 +16,14 @@ import {
 	chatCompletionModels,
 	embeddingModels,
 	imageGenerationModels,
+	textToSpeechModels,
+	speechRecognitionModels,
 	chatCompletionOperations,
 	embeddingOperations,
 	imageGenerationOperations,
-} from './MessageDescription';
+	textToSpeechOperations,
+	speechRecognitionOperations,
+} from './DeepInfraDescription';
 
 export class DeepInfra implements INodeType {
 	description: INodeTypeDescription = {
@@ -36,7 +41,7 @@ export class DeepInfra implements INodeType {
 		outputs: ['main'],
 		credentials: [
 			{
-				name: 'deepinfraApi',
+				name: 'deepInfraApi',
 				required: true,
 			},
 		],
@@ -46,25 +51,29 @@ export class DeepInfra implements INodeType {
 			chatCompletionModels,
 			embeddingModels,
 			imageGenerationModels,
+			textToSpeechModels,
+			speechRecognitionModels,
 			...chatCompletionOperations,
 			...embeddingOperations,
 			...imageGenerationOperations,
+			...textToSpeechOperations,
+			...speechRecognitionOperations,
 		],
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
-		
+
 		const resource = this.getNodeParameter('resource', 0) as string;
 		const operation = this.getNodeParameter('operation', 0) as string;
-		
-		const credentials = await this.getCredentials('deepinfraApi');
-		const apiKey = credentials.apiKey as string;
+
+		// Get credentials
+		const credentials = await this.getCredentials('deepInfraApi');
 
 		// Initialize OpenAI client with DeepInfra base URL
 		const openai = new OpenAI({
-			apiKey: apiKey as string,
+			apiKey: credentials.apiKey as string,
 			baseURL: 'https://api.deepinfra.com/v1/openai',
 		});
 
@@ -141,6 +150,129 @@ export class DeepInfra implements INodeType {
 					returnData.push({
 						json: response,
 					});
+				} else if (resource === 'textToSpeech' && operation === 'generate') {
+					// Handle Text to Speech
+					const model = this.getNodeParameter('model', i) as string;
+					const text = this.getNodeParameter('text', i) as string;
+					const options = this.getNodeParameter('options', i, {}) as {
+						voice?: string;
+						speed?: number;
+					};
+
+					// For text-to-speech, we need to use a direct API call
+					// as it's not part of the OpenAI-compatible endpoints
+					const apiKey = credentials.apiKey as string;
+					const response = await axios({
+						method: 'POST',
+						url: `https://api.deepinfra.com/v1/inference/${model}`,
+						headers: {
+							'Authorization': `bearer ${apiKey}`,
+							'Content-Type': 'application/json',
+						},
+						data: {
+							text,
+							voice: options.voice,
+							speed: options.speed,
+						},
+						responseType: 'arraybuffer',
+					});
+
+					// Check if the response contains audio data
+					if (response.data) {
+						returnData.push({
+							json: { success: true, model },
+							binary: {
+								audio: {
+									data: Buffer.from(response.data).toString('base64'),
+									mimeType: 'audio/wav',
+								},
+							},
+						});
+					} else {
+						returnData.push({
+							json: { 
+								success: false, 
+								error: 'No audio data returned from the API' 
+							},
+						});
+					}
+				} else if (resource === 'speechRecognition') {
+					// Handle Speech Recognition
+					const model = this.getNodeParameter('model', i) as string;
+					const inputType = this.getNodeParameter('inputType', i) as string;
+					const options = this.getNodeParameter('options', i, {}) as {
+						language?: string;
+						prompt?: string;
+						temperature?: number;
+						formBinaryData?: boolean;
+					};
+
+					let audioFileData;
+
+					// Handle different input types
+					if (inputType === 'url') {
+						const audioFile = this.getNodeParameter('audioFile', i) as string;
+						// It's a URL, download the file
+						const response = await axios({
+							method: 'GET',
+							url: audioFile,
+							responseType: 'arraybuffer',
+						});
+						
+						// Create a file object that OpenAI client can use
+						audioFileData = {
+							data: Buffer.from(response.data),
+							name: 'audio.mp3',
+							type: 'audio/mp3',
+						};
+					} else if (inputType === 'binaryData') {
+						// It's binary data from the workflow
+						const binaryPropertyName = this.getNodeParameter('binaryPropertyName', i) as string;
+						
+						// First, make sure the binary data exists
+						const itemBinaryData = this.helpers.assertBinaryData(i, binaryPropertyName);
+						
+						// Get metadata about the binary file
+						const metadata = await this.helpers.getBinaryMetadata(itemBinaryData.id as string);
+						
+						const stream = await this.helpers.getBinaryStream(itemBinaryData.id as string);
+							
+						// Create a file object that OpenAI client can use
+						audioFileData = {
+							data: stream,
+							name: metadata.fileName || 'audio.mp3',
+							type: metadata.mimeType || 'audio/mp3',
+						};
+					}
+
+					if (operation === 'transcribe') {
+						// Use OpenAI client for transcription
+						// @ts-ignore - DeepInfra's OpenAI client supports audio transcription
+						const response = await openai.audio.transcriptions.create({
+							model,
+							file: audioFileData,
+							language: options.language,
+							prompt: options.prompt,
+							temperature: options.temperature,
+						});
+
+						returnData.push({
+							json: response,
+						});
+					} else if (operation === 'translate') {
+						// Use OpenAI client for translation
+						// @ts-ignore - DeepInfra's OpenAI client supports audio translation
+						const response = await openai.audio.translations.create({
+							model,
+							file: audioFileData,
+							prompt: options.prompt,
+							temperature: options.temperature,
+						});
+
+						returnData.push({
+							json: response,
+						});
+					}
 				}
 			} catch (error) {
 				if (this.continueOnFail()) {

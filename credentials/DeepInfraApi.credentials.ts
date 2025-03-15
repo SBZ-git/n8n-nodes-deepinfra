@@ -1,23 +1,23 @@
-import type {
-	IAuthenticateGeneric,
-	ICredentialTestRequest,
+import {
 	ICredentialType,
 	INodeProperties,
+	ICredentialTestRequest,
+	IAuthenticateGeneric,
 } from 'n8n-workflow';
 
-export class DeepinfraApi implements ICredentialType {
-	name = 'deepinfraApi';
-
-	displayName = 'DeepInfra';
-
-	documentationUrl = 'deepinfra';
-
+export class DeepInfraApi implements ICredentialType {
+	name = 'deepInfraApi';
+	displayName = 'DeepInfra API';
+	documentationUrl = 'https://deepinfra.com/docs/api/';
+	
 	properties: INodeProperties[] = [
 		{
 			displayName: 'API Key',
 			name: 'apiKey',
 			type: 'string',
-			typeOptions: { password: true },
+			typeOptions: {
+				password: true,
+			},
 			required: true,
 			default: '',
 		},
@@ -35,13 +35,8 @@ export class DeepinfraApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: 'https://api.deepinfra.com',
-			url: '/v1/openai/chat/completions',
-			method: 'POST',
-			body: {
-				model: 'meta-llama/Llama-3.3-70B-Instruct',
-				messages: [{ role: 'user', content: 'Respond in one word' }],
-				max_tokens: 1,
-			},
+			url: '/v1/openai/models',
+			method: 'GET',
 		},
 	};
 }
