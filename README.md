@@ -2,7 +2,7 @@
 
 # n8n-nodes-deepinfra
 
-![workflow.png](assets/workflow.png)
+![DeepInfra Node](assets/node.png)
 
 This is an n8n community node. It lets you use DeepInfra API for various AI operations including chat completions, embeddings, and image generation.
 
@@ -19,8 +19,6 @@ This is an n8n community node. It lets you use DeepInfra API for various AI oper
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
 ## Usage
-
-![DeepInfra Node](assets/node.png)
 
 1. Add your DeepInfra API key in the n8n credentials manager
 2. Add the DeepInfra node to your workflow
