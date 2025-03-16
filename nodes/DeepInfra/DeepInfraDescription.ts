@@ -157,56 +157,24 @@ export const chatCompletionModels: INodeProperties = {
 	},
 	options: [
 		{
-			name: 'Meta-Llama 3.3 70B Instruct',
-			value: 'meta-llama/Llama-3.3-70B-Instruct',
+			name: 'DeepSeek R1',
+			value: 'deepseek-ai/DeepSeek-R1',
 		},
 		{
-			name: 'Meta-Llama 3.3 70B Instruct Turbo',
-			value: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
+			name: 'DeepSeek R1 Distill Llama 70B',
+			value: 'deepseek-ai/DeepSeek-R1-Distill-Llama-70B',
 		},
 		{
-			name: 'Meta-Llama 3.1 8B Instruct',
-			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+			name: 'DeepSeek R1 Distill Qwen 32B',
+			value: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-32B',
 		},
 		{
-			name: 'Meta-Llama 3.1 70B Instruct',
-			value: 'meta-llama/Meta-Llama-3.1-70B-Instruct',
+			name: 'DeepSeek R1 Turbo',
+			value: 'deepseek-ai/DeepSeek-R1-Turbo',
 		},
 		{
-			name: 'Meta-Llama 3.1 405B Instruct',
-			value: 'meta-llama/Meta-Llama-3.1-405B-Instruct',
-		},
-		{
-			name: 'Meta-Llama 3.1 8B Instruct Turbo',
-			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
-		},
-		{
-			name: 'Meta-Llama 3.1 70B Instruct Turbo',
-			value: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
-		},
-		{
-			name: 'Meta-Llama 3.2 1B Instruct',
-			value: 'meta-llama/Llama-3.2-1B-Instruct',
-		},
-		{
-			name: 'Meta-Llama 3.2 3B Instruct',
-			value: 'meta-llama/Llama-3.2-3B-Instruct',
-		},
-		{
-			name: 'Meta-Llama 3 70B Instruct',
-			value: 'meta-llama/Meta-Llama-3-70B-Instruct',
-		},
-		{
-			name: 'Meta-Llama 3 8B Instruct',
-			value: 'meta-llama/Meta-Llama-3-8B-Instruct',
-		},
-		{
-			name: 'Mistral 7B Instruct v0.3',
-			value: 'mistralai/Mistral-7B-Instruct-v0.3',
-		},
-		{
-			name: 'Mistral Nemo Instruct 2407',
-			value: 'mistralai/Mistral-Nemo-Instruct-2407',
+			name: 'DeepSeek V3',
+			value: 'deepseek-ai/DeepSeek-V3',
 		},
 		{
 			name: 'Google Gemini 1.5 Flash 8B',
@@ -217,32 +185,64 @@ export const chatCompletionModels: INodeProperties = {
 			value: 'google/gemini-2.0-flash-001',
 		},
 		{
-			name: 'Google Gemma 2 27B IT',
-			value: 'google/gemma-2-27b-it',
-		},
-		{
 			name: 'Google Gemma 2 9B IT',
 			value: 'google/gemma-2-9b-it',
 		},
 		{
-			name: 'DeepSeek R1 Turbo',
-			value: 'deepseek-ai/DeepSeek-R1-Turbo',
+			name: 'Google Gemma 2 27B IT',
+			value: 'google/gemma-2-27b-it',
 		},
 		{
-			name: 'DeepSeek R1',
-			value: 'deepseek-ai/DeepSeek-R1',
+			name: 'Meta-Llama 3 8B Instruct',
+			value: 'meta-llama/Meta-Llama-3-8B-Instruct',
 		},
 		{
-			name: 'DeepSeek R1 Distill Llama 70B',
-			value: 'deepseek-ai/DeepSeek-R1-Distill-Llama-70B',
+			name: 'Meta-Llama 3 70B Instruct',
+			value: 'meta-llama/Meta-Llama-3-70B-Instruct',
 		},
 		{
-			name: 'DeepSeek V3',
-			value: 'deepseek-ai/DeepSeek-V3',
+			name: 'Meta-Llama 3.1 8B Instruct',
+			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct',
 		},
 		{
-			name: 'DeepSeek R1 Distill Qwen 32B',
-			value: 'deepseek-ai/DeepSeek-R1-Distill-Qwen-32B',
+			name: 'Meta-Llama 3.1 8B Instruct Turbo',
+			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+		},
+		{
+			name: 'Meta-Llama 3.1 70B Instruct',
+			value: 'meta-llama/Meta-Llama-3.1-70B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.1 70B Instruct Turbo',
+			value: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
+		},
+		{
+			name: 'Meta-Llama 3.1 405B Instruct',
+			value: 'meta-llama/Meta-Llama-3.1-405B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.2 1B Instruct',
+			value: 'meta-llama/Llama-3.2-1B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.2 3B Instruct',
+			value: 'meta-llama/Llama-3.2-3B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.3 70B Instruct',
+			value: 'meta-llama/Llama-3.3-70B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.3 70B Instruct Turbo',
+			value: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
+		},
+		{
+			name: 'Mistral 7B Instruct V0.3',
+			value: 'mistralai/Mistral-7B-Instruct-v0.3',
+		},
+		{
+			name: 'Mistral Nemo Instruct 2407',
+			value: 'mistralai/Mistral-Nemo-Instruct-2407',
 		},
 	],
 	default: 'meta-llama/Llama-3.3-70B-Instruct',
@@ -263,79 +263,60 @@ export const embeddingModels: INodeProperties = {
 	},
 	options: [
         {
-            name: 'BAAI/bge-base-en-v1.5',
+            name: 'BAAI Bge-Base-En-V1.5',
             value: 'BAAI/bge-base-en-v1.5',
         },
         {
-            name: 'BAAI/bge-en-icl',
+            name: 'BAAI Bge-En-Icl',
             value: 'BAAI/bge-en-icl',
         },
         {
-            name: 'BAAI/bge-large-en-v1.5',
+            name: 'BAAI Bge-Large-En-V1.5',
             value: 'BAAI/bge-large-en-v1.5',
         },
         {
-            name: 'BAAI/bge-m3',
+            name: 'BAAI Bge-M3',
             value: 'BAAI/bge-m3',
         },
         {
-            name: 'intfloat/e5-large-v2',
+            name: 'Intfloat E5-Large-V2',
             value: 'intfloat/e5-large-v2',
         },
         {
-            name: 'intfloat/multilingual-e5-large',
+            name: 'Intfloat Multilingual-E5-Large',
             value: 'intfloat/multilingual-e5-large',
         },
         {
-            name: 'sentence-transformers/all-MiniLM-L12-v2',
-            value: 'sentence-transformers/all-MiniLM-L12-v2',
-        {
-            name: 'sentence-transformers/clip-ViT-B-32',
-            value: 'sentence-transformers/clip-ViT-B-32',
-        },
-        {
-            name: 'sentence-transformers/clip-ViT-B-32-multilingual-v1',
-            value: 'sentence-transformers/clip-ViT-B-32-multilingual-v1',
-        },
-        {
-            name: 'sentence-transformers/paraphrase-MiniLM-L6-v2',
-            value: 'sentence-transformers/paraphrase-MiniLM-L6-v2',
-        },
-        {
-            name: 'shibing624/text2vec-base-chinese',
-            value: 'shibing624/text2vec-base-chinese',
-        },
-        {
-            name: 'thenlper/gte-base',
-            value: 'thenlper/gte-base',
-        },
-        {
-            name: 'BAAI/bge-en-icl',
-            value: 'BAAI/bge-en-icl',
-        },
-        {
-            name: 'BAAI/bge-large-en-v1.5',
-            value: 'BAAI/bge-large-en-v1.5',
-        },
-        {
-            name: 'intfloat/multilingual-e5-large',
-            value: 'intfloat/multilingual-e5-large',
-        },
-        {
-            name: 'sentence-transformers/all-MiniLM-L12-v2',
-            value: 'sentence-transformers/all-MiniLM-L12-v2',
-        },
-        {
-            name: 'sentence-transformers/all-MiniLM-L6-v2',
+            name: 'Sentence-Transformers All-MiniLM-L6-V2',
             value: 'sentence-transformers/all-MiniLM-L6-v2',
         },
         {
-            name: 'sentence-transformers/all-mpnet-base-v2',
+            name: 'Sentence-Transformers All-MiniLM-L12-V2',
+            value: 'sentence-transformers/all-MiniLM-L12-v2',
+        },
+        {
+            name: 'Sentence-Transformers All-Mpnet-Base-V2',
             value: 'sentence-transformers/all-mpnet-base-v2',
         },
         {
-            name: 'sentence-transformers/clip-ViT-B-32',
+            name: 'Sentence-Transformers Clip-ViT-B-32',
             value: 'sentence-transformers/clip-ViT-B-32',
+        },
+        {
+            name: 'Sentence-Transformers Clip-ViT-B-32-Multilingual-V1',
+            value: 'sentence-transformers/clip-ViT-B-32-multilingual-v1',
+        },
+        {
+            name: 'Sentence-Transformers Paraphrase-MiniLM-L6-V2',
+            value: 'sentence-transformers/paraphrase-MiniLM-L6-v2',
+        },
+        {
+            name: 'Shibing624 Text2vec-Base-Chinese',
+            value: 'shibing624/text2vec-base-chinese',
+        },
+        {
+            name: 'Thenlper Gte-Base',
+            value: 'thenlper/gte-base',
         },
 	],
 	default: 'BAAI/bge-base-en-v1.5',
@@ -356,73 +337,69 @@ export const imageGenerationModels: INodeProperties = {
 	},
 	options: [
         {
-            name: 'stabilityai/sd3.5',
-            value: 'stabilityai/sd3.5',
-        },
-        {
-            name: 'black-forest-labs/FLUX-1.1-pro',
-            value: 'black-forest-labs/FLUX-1.1-pro',
-        },
-        {
-            name: 'black-forest-labs/FLUX-1-schnell',
-            value: 'black-forest-labs/FLUX-1-schnell',
-        },
-        {
-            name: 'black-forest-labs/FLUX-1-dev',
+            name: 'Black-Forest-Labs FLUX-1-Dev',
             value: 'black-forest-labs/FLUX-1-dev',
         },
         {
-            name: 'black-forest-labs/FLUX-pro',
-            value: 'black-forest-labs/FLUX-pro',
-        },
-        {
-            name: 'stabilityai/sd3.5-medium',
-            value: 'stabilityai/sd3.5-medium',
-        },
-        {
-            name: 'CompVis/stable-diffusion-v1-4',
-            value: 'CompVis/stable-diffusion-v1-4',
-        },
-        {
-            name: 'XpucT/Deliberate',
-            value: 'XpucT/Deliberate',
-        },
-        {
-            name: 'black-forest-labs/FLUX-1-Redux-dev',
+            name: 'Black-Forest-Labs FLUX-1-Redux-Dev',
             value: 'black-forest-labs/FLUX-1-Redux-dev',
         },
         {
-            name: 'deepseek-ai/Janus-Pro-1B',
+            name: 'Black-Forest-Labs FLUX-1-Schnell',
+            value: 'black-forest-labs/FLUX-1-schnell',
+        },
+        {
+            name: 'Black-Forest-Labs FLUX-1.1-Pro',
+            value: 'black-forest-labs/FLUX-1.1-pro',
+        },
+        {
+            name: 'Black-Forest-Labs FLUX-Pro',
+            value: 'black-forest-labs/FLUX-pro',
+        },
+        {
+            name: 'CompVis Stable-Diffusion-V1-4',
+            value: 'CompVis/stable-diffusion-v1-4',
+        },
+        {
+            name: 'Deepseek-Ai Janus-Pro-1B',
             value: 'deepseek-ai/Janus-Pro-1B',
         },
         {
-            name: 'deepseek-ai/Janus-Pro-7B',
+            name: 'Deepseek-Ai Janus-Pro-7B',
             value: 'deepseek-ai/Janus-Pro-7B',
         },
         {
-            name: 'runwayml/stable-diffusion-v1-5',
+            name: 'Runwayml Stable-Diffusion-V1-5',
             value: 'runwayml/stable-diffusion-v1-5',
         },
         {
-            name: 'stabilityai/sdxl-turbo',
+            name: 'Stabilityai Sd3.5',
+            value: 'stabilityai/sd3.5',
+        },
+        {
+            name: 'Stabilityai Sd3.5-Medium',
+            value: 'stabilityai/sd3.5-medium',
+        },
+        {
+            name: 'Stabilityai Sdxl-Turbo',
             value: 'stabilityai/sdxl-turbo',
         },
         {
-            name: 'stabilityai/stable-diffusion-2-1',
+            name: 'Stabilityai Stable-Diffusion-2-1',
             value: 'stabilityai/stable-diffusion-2-1',
         },
         {
-            name: 'stabilityai/stable-diffusion-xl-base-1.0',
+            name: 'Stabilityai Stable-Diffusion-Xl-Base-1.0',
             value: 'stabilityai/stable-diffusion-xl-base-1.0',
         },
         {
-            name: 'stabilityai/stable-diffusion-xl-refiner-1.0',
+            name: 'Stabilityai Stable-Diffusion-Xl-Refiner-1.0',
             value: 'stabilityai/stable-diffusion-xl-refiner-1.0',
         },
         {
-            name: 'stabilityai/stable-diffusion-2-1',
-            value: 'stabilityai/stable-diffusion-2-1',
-        }
+            name: 'XpucT Deliberate',
+            value: 'XpucT/Deliberate',
+        },
 	],
 	default: 'stabilityai/stable-diffusion-xl-base-1.0',
 	description: 'The model to use for image generation',
@@ -442,15 +419,15 @@ export const textToSpeechModels: INodeProperties = {
 	},
 	options: [
 		{
-			name: 'Kokoro 82M',
+			name: 'Hexgrad Kokoro-82M',
 			value: 'hexgrad/Kokoro-82M',
 		},
 		{
-			name: 'Zonos v0.1 Hybrid',
+			name: 'Zyphra Zonos-V0.1-Hybrid',
 			value: 'Zyphra/Zonos-v0.1-hybrid',
 		},
 		{
-			name: 'Zonos v0.1 Transformer',
+			name: 'Zyphra Zonos-V0.1-Transformer',
 			value: 'Zyphra/Zonos-v0.1-transformer',
 		},
 	],
@@ -471,11 +448,11 @@ export const speechRecognitionModels: INodeProperties = {
 	},
 	options: [
 		{
-			name: 'Whisper Large v3',
+			name: 'Openai Whisper-Large-V3',
 			value: 'openai/whisper-large-v3',
 		},
 		{
-			name: 'Whisper Large v3 Turbo',
+			name: 'Openai Whisper-Large-V3-Turbo',
 			value: 'openai/whisper-large-v3-turbo',
 		},
 	],
