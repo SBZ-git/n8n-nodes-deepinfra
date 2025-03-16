@@ -7,6 +7,9 @@ import {
 
 import OpenAI from 'openai';
 import axios from 'axios';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as os from 'os';
 
 import {
 	resourceFields,
@@ -137,12 +140,12 @@ export class DeepInfra implements INodeType {
 						prompt,
 						n: options.n,
 						size: options.size,
-						// Add DeepInfra specific parameters
-						response_format: 'url',
-						// @ts-ignore - DeepInfra specific parameters
-						negative_prompt: options.negative_prompt,
-						// @ts-ignore - DeepInfra specific parameters
-						steps: options.steps,
+						// // Add DeepInfra specific parameters
+						// response_format: 'url',
+						// // @ts-ignore - DeepInfra specific parameters
+						// negative_prompt: options.negative_prompt,
+						// // @ts-ignore - DeepInfra specific parameters
+						// steps: options.steps,
 					});
 
 					returnData.push({
@@ -153,7 +156,7 @@ export class DeepInfra implements INodeType {
 					const model = this.getNodeParameter('model', i) as string;
 					const text = this.getNodeParameter('text', i) as string;
 					const options = this.getNodeParameter('options', i, {}) as {
-						voice?: string;
+						voice?: { values: { voice: string }[] };
 						speed?: number;
 					};
 
@@ -164,33 +167,42 @@ export class DeepInfra implements INodeType {
 						method: 'POST',
 						url: `https://api.deepinfra.com/v1/inference/${model}`,
 						headers: {
-							'Authorization': `bearer ${apiKey}`,
+							Authorization: `bearer ${apiKey}`,
 							'Content-Type': 'application/json',
 						},
 						data: {
 							text,
-							voice: options.voice,
+							preset_voice: options.voice && options.voice.values && options.voice.values.length > 0
+								? options.voice.values.map((item: { voice: string }) => item.voice)
+								: ['af_bella'],
 							speed: options.speed,
+							output_format: 'mp3',
 						},
-						responseType: 'arraybuffer',
 					});
 
 					// Check if the response contains audio data
-					if (response.data) {
+					if (response.data && response.data.audio) {
+						// Extract the base64 data from the data URL
+						// Format is typically: data:audio/mp3;base64,BASE64_DATA
+						const base64Data = response.data.audio.split(',')[1];
+
+						// Convert base64 to binary buffer
+						const binaryData = Buffer.from(base64Data, 'base64');
+
 						returnData.push({
 							json: { success: true, model },
 							binary: {
 								audio: {
-									data: Buffer.from(response.data).toString('base64'),
-									mimeType: 'audio/wav',
+									data: binaryData.toString('base64'),
+									mimeType: 'audio/mp3',
 								},
 							},
 						});
 					} else {
 						returnData.push({
-							json: { 
-								success: false, 
-								error: 'No audio data returned from the API' 
+							json: {
+								success: false,
+								error: 'No audio data returned from the API'
 							},
 						});
 					}
@@ -205,7 +217,7 @@ export class DeepInfra implements INodeType {
 						formBinaryData?: boolean;
 					};
 
-					let audioFileData;
+					let audioFilePath = '';
 
 					// Handle different input types
 					if (inputType === 'url') {
@@ -216,31 +228,24 @@ export class DeepInfra implements INodeType {
 							url: audioFile,
 							responseType: 'arraybuffer',
 						});
-						
-						// Create a file object that OpenAI client can use
-						audioFileData = {
-							data: Buffer.from(response.data),
-							name: 'audio.mp3',
-							type: 'audio/mp3',
-						};
+
+						// Create a temporary file
+						const tempDir = os.tmpdir();
+						audioFilePath = path.join(tempDir, `audio-${Date.now()}.mp3`);
+						fs.writeFileSync(audioFilePath, Buffer.from(response.data));
 					} else if (inputType === 'binaryData') {
 						// It's binary data from the workflow
 						const binaryPropertyName = this.getNodeParameter('binaryPropertyName', i) as string;
-						
+
 						// First, make sure the binary data exists
 						const itemBinaryData = this.helpers.assertBinaryData(i, binaryPropertyName);
-						
-						// Get metadata about the binary file
-						const metadata = await this.helpers.getBinaryMetadata(itemBinaryData.id as string);
-						
-						const stream = await this.helpers.getBinaryStream(itemBinaryData.id as string);
-							
-						// Create a file object that OpenAI client can use
-						audioFileData = {
-							data: stream,
-							name: metadata.fileName || 'audio.mp3',
-							type: metadata.mimeType || 'audio/mp3',
-						};
+
+						const binaryData = Buffer.from(itemBinaryData.data, 'base64');
+
+						// Create a temporary file
+						const tempDir = os.tmpdir();
+						audioFilePath = path.join(tempDir, `audio-${Date.now()}.mp3`);
+						fs.writeFileSync(audioFilePath, binaryData);
 					}
 
 					if (operation === 'transcribe') {
@@ -248,11 +253,20 @@ export class DeepInfra implements INodeType {
 						// @ts-ignore - DeepInfra's OpenAI client supports audio transcription
 						const response = await openai.audio.transcriptions.create({
 							model,
-							file: audioFileData,
+							file: fs.createReadStream(audioFilePath),
 							language: options.language,
 							prompt: options.prompt,
 							temperature: options.temperature,
 						});
+
+						// Clean up the temporary file
+						try {
+							if (audioFilePath) {
+								fs.unlinkSync(audioFilePath);
+							}
+						} catch (error) {
+							// Ignore errors when deleting temporary files
+						}
 
 						returnData.push({
 							json: response,
@@ -262,10 +276,19 @@ export class DeepInfra implements INodeType {
 						// @ts-ignore - DeepInfra's OpenAI client supports audio translation
 						const response = await openai.audio.translations.create({
 							model,
-							file: audioFileData,
+							file: fs.createReadStream(audioFilePath),
 							prompt: options.prompt,
 							temperature: options.temperature,
 						});
+
+						// Clean up the temporary file
+						try {
+							if (audioFilePath) {
+								fs.unlinkSync(audioFilePath);
+							}
+						} catch (error) {
+							// Ignore errors when deleting temporary files
+						}
 
 						returnData.push({
 							json: response,

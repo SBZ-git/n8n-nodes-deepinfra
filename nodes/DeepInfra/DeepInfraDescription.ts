@@ -760,11 +760,36 @@ export const textToSpeechOperations: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Voice',
+				displayName: 'Voices',
 				name: 'voice',
-				type: 'string',
-				default: '',
-				description: 'The voice to use for speech generation (model-specific)',
+				type: 'fixedCollection',
+				typeOptions: {
+					multipleValues: true,
+					sortable: true,
+				},
+				default: {
+					values: [
+						{
+							voice: 'af_bella',
+						},
+					],
+				},
+				options: [
+					{
+						name: 'values',
+						displayName: 'Voice',
+						values: [
+							{
+								displayName: 'Voice Identifier',
+								name: 'voice',
+								type: 'string',
+								default: '',
+								description: 'Voice identifier for speech generation (e.g., af_bella, default)',
+							},
+						],
+					},
+				],
+				description: 'The voices to use for speech generation (model-specific)',
 			},
 			{
 				displayName: 'Speed',
@@ -872,4 +897,4 @@ export const speechRecognitionOperations: INodeProperties[] = [
 			}
 		],
 	},
-]; 
+];
