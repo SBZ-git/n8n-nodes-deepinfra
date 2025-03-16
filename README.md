@@ -8,9 +8,11 @@ This is an n8n community node. It lets you use DeepInfra API for various AI oper
 
 ## Features
 
-- **Chat**: Generate text responses using various LLM models like Meta-Llama 3.3, DeepSeek, Mistral, and more
-- **Embedding**: Create vector embeddings from text using models like Cohere Embed and Jina Embeddings
-- **Image**: Generate images from text prompts using models like Stable Diffusion XL, Midjourney, and more
+- **Chat**: Generate text responses using various LLM models like Meta-Llama 3.3, Meta-Llama 3.1, Meta-Llama 3.2, Google Gemini, Google Gemma, DeepSeek, and Mistral
+- **Embedding**: Create vector embeddings from text using models like BAAI/bge, sentence-transformers, and intfloat embedding models
+- **Image**: Generate images from text prompts using models like Stable Diffusion XL, SD3.5, FLUX, and Janus
+- **Text to Speech**: Convert text to natural-sounding speech using models like Kokoro and Zonos
+- **Speech Recognition**: Transcribe or translate audio to text using Whisper models
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
