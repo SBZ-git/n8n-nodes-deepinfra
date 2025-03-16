@@ -21,12 +21,12 @@ export const resourceFields: INodeProperties[] = [
 				value: 'image',
 			},
 			{
-				name: 'Text to Speech',
-				value: 'textToSpeech',
-			},
-			{
 				name: 'Speech Recognition',
 				value: 'speechRecognition',
+			},
+			{
+				name: 'Text to Speech',
+				value: 'textToSpeech',
 			},
 		],
 		default: 'chat',
@@ -136,7 +136,7 @@ export const operationFields: INodeProperties[] = [
 				name: 'Translate',
 				value: 'translate',
 				description: 'Translate speech to English text',
-				action: 'Translate speech to English text',
+				action: 'Translate speech to english text',
 			},
 		],
 		default: 'transcribe',
@@ -185,28 +185,24 @@ export const chatCompletionModels: INodeProperties = {
 			value: 'google/gemini-2.0-flash-001',
 		},
 		{
-			name: 'Google Gemma 2 9B IT',
-			value: 'google/gemma-2-9b-it',
-		},
-		{
 			name: 'Google Gemma 2 27B IT',
 			value: 'google/gemma-2-27b-it',
 		},
 		{
-			name: 'Meta-Llama 3 8B Instruct',
-			value: 'meta-llama/Meta-Llama-3-8B-Instruct',
+			name: 'Google Gemma 2 9B IT',
+			value: 'google/gemma-2-9b-it',
 		},
 		{
 			name: 'Meta-Llama 3 70B Instruct',
 			value: 'meta-llama/Meta-Llama-3-70B-Instruct',
 		},
 		{
-			name: 'Meta-Llama 3.1 8B Instruct',
-			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+			name: 'Meta-Llama 3 8B Instruct',
+			value: 'meta-llama/Meta-Llama-3-8B-Instruct',
 		},
 		{
-			name: 'Meta-Llama 3.1 8B Instruct Turbo',
-			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+			name: 'Meta-Llama 3.1 405B Instruct',
+			value: 'meta-llama/Meta-Llama-3.1-405B-Instruct',
 		},
 		{
 			name: 'Meta-Llama 3.1 70B Instruct',
@@ -217,8 +213,12 @@ export const chatCompletionModels: INodeProperties = {
 			value: 'meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo',
 		},
 		{
-			name: 'Meta-Llama 3.1 405B Instruct',
-			value: 'meta-llama/Meta-Llama-3.1-405B-Instruct',
+			name: 'Meta-Llama 3.1 8B Instruct',
+			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+		},
+		{
+			name: 'Meta-Llama 3.1 8B Instruct Turbo',
+			value: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
 		},
 		{
 			name: 'Meta-Llama 3.2 1B Instruct',
@@ -262,62 +262,62 @@ export const embeddingModels: INodeProperties = {
 		},
 	},
 	options: [
-        {
-            name: 'BAAI Bge-Base-En-V1.5',
-            value: 'BAAI/bge-base-en-v1.5',
-        },
-        {
-            name: 'BAAI Bge-En-Icl',
-            value: 'BAAI/bge-en-icl',
-        },
-        {
-            name: 'BAAI Bge-Large-En-V1.5',
-            value: 'BAAI/bge-large-en-v1.5',
-        },
-        {
-            name: 'BAAI Bge-M3',
-            value: 'BAAI/bge-m3',
-        },
-        {
-            name: 'Intfloat E5-Large-V2',
-            value: 'intfloat/e5-large-v2',
-        },
-        {
-            name: 'Intfloat Multilingual-E5-Large',
-            value: 'intfloat/multilingual-e5-large',
-        },
-        {
-            name: 'Sentence-Transformers All-MiniLM-L6-V2',
-            value: 'sentence-transformers/all-MiniLM-L6-v2',
-        },
-        {
-            name: 'Sentence-Transformers All-MiniLM-L12-V2',
-            value: 'sentence-transformers/all-MiniLM-L12-v2',
-        },
-        {
-            name: 'Sentence-Transformers All-Mpnet-Base-V2',
-            value: 'sentence-transformers/all-mpnet-base-v2',
-        },
-        {
-            name: 'Sentence-Transformers Clip-ViT-B-32',
-            value: 'sentence-transformers/clip-ViT-B-32',
-        },
-        {
-            name: 'Sentence-Transformers Clip-ViT-B-32-Multilingual-V1',
-            value: 'sentence-transformers/clip-ViT-B-32-multilingual-v1',
-        },
-        {
-            name: 'Sentence-Transformers Paraphrase-MiniLM-L6-V2',
-            value: 'sentence-transformers/paraphrase-MiniLM-L6-v2',
-        },
-        {
-            name: 'Shibing624 Text2vec-Base-Chinese',
-            value: 'shibing624/text2vec-base-chinese',
-        },
-        {
-            name: 'Thenlper Gte-Base',
-            value: 'thenlper/gte-base',
-        },
+		{
+			name: 'BAAI Bge-Base-En-V1.5',
+			value: 'BAAI/bge-base-en-v1.5',
+		},
+		{
+			name: 'BAAI Bge-En-Icl',
+			value: 'BAAI/bge-en-icl',
+		},
+		{
+			name: 'BAAI Bge-Large-En-V1.5',
+			value: 'BAAI/bge-large-en-v1.5',
+		},
+		{
+			name: 'BAAI Bge-M3',
+			value: 'BAAI/bge-m3',
+		},
+		{
+			name: 'Intfloat E5-Large-V2',
+			value: 'intfloat/e5-large-v2',
+		},
+		{
+			name: 'Intfloat Multilingual-E5-Large',
+			value: 'intfloat/multilingual-e5-large',
+		},
+		{
+			name: 'Sentence-Transformers All-MiniLM-L12-V2',
+			value: 'sentence-transformers/all-MiniLM-L12-v2',
+		},
+		{
+			name: 'Sentence-Transformers All-MiniLM-L6-V2',
+			value: 'sentence-transformers/all-MiniLM-L6-v2',
+		},
+		{
+			name: 'Sentence-Transformers All-Mpnet-Base-V2',
+			value: 'sentence-transformers/all-mpnet-base-v2',
+		},
+		{
+			name: 'Sentence-Transformers Clip-ViT-B-32',
+			value: 'sentence-transformers/clip-ViT-B-32',
+		},
+		{
+			name: 'Sentence-Transformers Clip-ViT-B-32-Multilingual-V1',
+			value: 'sentence-transformers/clip-ViT-B-32-multilingual-v1',
+		},
+		{
+			name: 'Sentence-Transformers Paraphrase-MiniLM-L6-V2',
+			value: 'sentence-transformers/paraphrase-MiniLM-L6-v2',
+		},
+		{
+			name: 'Shibing624 Text2vec-Base-Chinese',
+			value: 'shibing624/text2vec-base-chinese',
+		},
+		{
+			name: 'Thenlper Gte-Base',
+			value: 'thenlper/gte-base',
+		},
 	],
 	default: 'BAAI/bge-base-en-v1.5',
 	description: 'The model to use for embedding generation',
